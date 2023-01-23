@@ -26,7 +26,8 @@ async function show(e) {
   const filtered = res.filter((el) => {
     const namematch = el.name.toLowerCase().includes(search);
     const docs = el.incarnation.toLowerCase().includes(search);
-    const ep = e.title.toLowerCase().includes(search);
+    const ep = el.title.toLowerCase().includes(search);
+    return namematch || docs || ep;
   });
   console.log(filtered);
 }
