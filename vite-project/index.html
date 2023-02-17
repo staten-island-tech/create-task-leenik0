@@ -5,16 +5,44 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;800&display=swap"
+      rel="stylesheet"
+    />
     <title>Vite App</title>
   </head>
   <body>
-    <form id="form">
-      <label for="input">Yo</label>
-      <br />
-      <input type="text" id="input" />
-      <input type="submit" value="Submit" id="result" />
-    </form>
-    <div id="cards"></div>
+    <div id="btns">
+      <button class="button" id="act">Actors</button>
+      <button class="button" id="doc">Doctors</button>
+      <button class="button" id="eps">Episodes</button>
+      <button class="button" id="write">Writers</button>
+      <button class="button" id="hist">History</button>
+    </div>
+    <div id="inps">
+      <form class="form">
+        <label for="input-1">People</label>
+        <br />
+        <input type="text" id="input-1" />
+        <input type="submit" value="Submit" class="result" id="sub1" />
+      </form>
+      <form class="form">
+        <label for="input-2">Doctors</label>
+        <br />
+        <input type="text" id="input-2" />
+        <input type="submit" value="Submit" class="result" id="sub2" />
+      </form>
+      <form class="form">
+        <label for="input-3">Episodes</label>
+        <br />
+        <input type="text" id="input-3" />
+        <input type="submit" value="Submit" class="result" id="sub3" />
+      </form>
+    </div>
+
+    <div class="container" id="cards"></div>
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
