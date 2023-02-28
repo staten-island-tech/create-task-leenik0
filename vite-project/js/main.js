@@ -17,6 +17,7 @@ const button = {
 };
 
 const inputs = {
+  all: document.querySelectorAll(".inp"),
   inp1: document.getElementById("input-1"),
   inp2: document.getElementById("input-2"),
   inp3: document.getElementById("input-3"),
@@ -24,26 +25,43 @@ const inputs = {
 
 const hist = [];
 
-// cards
-
 // search bar
-async function show(e, x) {
+async function show(e, x, y) {
   const response = await fetch(e);
   const res = await response.json();
   const search = x.value.toLowerCase();
   const filtered = res.filter((el) => {
     if (e === URL.actors || e === URL.writers) {
-      const namematch = el.name.toLowerCase().includes(search);
-      return namematch;
+      if (el.name.toLowerCase().includes(search)) {
+        const namematch = el.name.toLowerCase().includes(search);
+        return namematch;
+      } else {
+        console.log("no");
+      }
     } else if (e === URL.doctors) {
       const docs = el.incarnation.toLowerCase().includes(search);
       return docs;
     } else if (e === URL.episodes) {
       const ep = el.id.toString() === search;
-      return ep;
+      if (typeof el.title != "undefined" && el.title != null) {
+        titlematch = el.title.toLowerCase().includes(search);
+        return { titlematch, ep };
+      } else {
+        return ep;
+      }
     }
   });
-  console.log(filtered);
+  switch (y) {
+    case "1":
+      people(filtered);
+      break;
+    case "2":
+      inc(filtered);
+      break;
+    case "3":
+      list(filtered);
+      break;
+  }
 }
 
 document.querySelectorAll(".form").forEach((el) => {
@@ -57,13 +75,14 @@ document.querySelectorAll(".form").forEach((el) => {
       box.innerHTML = "";
       switch (e.target) {
         case document.getElementById("sub1"):
-          show(URL.doctors, inputs.inp1);
+          show(URL.actors, inputs.inp1, "1");
+          show(URL.writers, inputs.inp1, "1");
           break;
         case document.getElementById("sub2"):
-          show(URL.episodes, inputs.inp2);
+          show(URL.doctors, inputs.inp2, "2");
           break;
         case document.getElementById("sub3"):
-          show(URL.writers, inputs.inp1);
+          show(URL.episodes, inputs.inp3, "3");
           break;
       }
     }
@@ -106,10 +125,6 @@ function his() {
       );
     });
   }
-}
-
-function searched() {
-  box.insertAdjacentHTML("afterbegin");
 }
 
 function btn(e) {
