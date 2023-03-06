@@ -14,6 +14,7 @@
     <title>Vite App</title>
   </head>
   <body>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Doctor-who-logo-removebg.png" alt="Doctor Who Logo" id="img">
     <div id="btns">
       <button class="button" id="act">Actors</button>
       <button class="button" id="doc">Doctors</button>
@@ -21,6 +22,7 @@
       <button class="button" id="write">Writers</button>
       <button class="button" id="hist">History</button>
     </div>
+    <button class='button' id='clear'>Clear Search</button>
     <div id="inps">
       <form class="form" id="sub1">
         <label for="input-1">People</label>
@@ -35,13 +37,18 @@
         <input type="submit" value="Submit" class="result" />
       </form>
       <form class="form" id="sub3">
-        <label for="input-3">Episodes</label>
+        <label for="input-3">Episode Title</label>
         <br />
         <input type="text" id="input-3" class="inp" />
         <input type="submit" value="Submit" class="result" />
       </form>
+      <form class="form" id="sub4">
+        <label for="input-4">Episode Number</label>
+        <br />
+        <input type="text" id="input-4" class="inp" />
+        <input type="submit" value="Submit" class="result" />
+      </form>
     </div>
-
     <div class="container" id="cards"></div>
     <script type="module" src="./js/main.js"></script>
   </body>

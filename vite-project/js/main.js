@@ -14,6 +14,7 @@ const button = {
   episode: document.getElementById("eps"),
   history: document.getElementById("hist"),
   searches: document.getElementById("searches"),
+  clear: document.getElementById("clear"),
 };
 
 const inputs = {
@@ -21,6 +22,7 @@ const inputs = {
   inp1: document.getElementById("input-1"),
   inp2: document.getElementById("input-2"),
   inp3: document.getElementById("input-3"),
+  inp4: document.getElementById("input-4"),
 };
 
 const hist = [];
@@ -35,56 +37,63 @@ async function show(e, x, y) {
       if (el.name.toLowerCase().includes(search)) {
         const namematch = el.name.toLowerCase().includes(search);
         return namematch;
-      } else {
-        console.log("no");
       }
     } else if (e === URL.doctors) {
       const docs = el.incarnation.toLowerCase().includes(search);
       return docs;
-    } else if (e === URL.episodes) {
-      const ep = el.id.toString() === search;
+    } else if (e === URL.episodes && y === "3") {
       if (typeof el.title != "undefined" && el.title != null) {
-        titlematch = el.title.toLowerCase().includes(search);
-        return { titlematch, ep };
-      } else {
-        return ep;
+        const titlematch = el.title.toLowerCase().includes(search);
+        return titlematch;
       }
+    } else if (e === URL.episodes && y === "4") {
+      const ep = el.id.toString() === search;
+      return ep;
     }
   });
-  switch (y) {
-    case "1":
-      people(filtered);
-      break;
-    case "2":
-      inc(filtered);
-      break;
-    case "3":
-      list(filtered);
-      break;
+  if (search.length > 0) {
+    switch (y) {
+      case "1":
+        people(filtered);
+        break;
+      case "2":
+        inc(filtered);
+        break;
+      case "3":
+      case "4":
+        list(filtered);
+        break;
+    }
+  } else {
+    hist.pop();
+    box.setAttribute("id", "srch");
+    box.innerHTML = "<h1 id='nope'>Search must be filled out!</h1>";
   }
 }
 
 document.querySelectorAll(".form").forEach((el) => {
   el.addEventListener("submit", function (e) {
     e.preventDefault();
-    if (e.length === 0) {
-      alert("Search must be filled out");
-    } else {
-      box.setAttribute("id", "cards");
-      hist.push(e.value);
-      box.innerHTML = "";
-      switch (e.target) {
-        case document.getElementById("sub1"):
-          show(URL.actors, inputs.inp1, "1");
-          show(URL.writers, inputs.inp1, "1");
-          break;
-        case document.getElementById("sub2"):
-          show(URL.doctors, inputs.inp2, "2");
-          break;
-        case document.getElementById("sub3"):
-          show(URL.episodes, inputs.inp3, "3");
-          break;
-      }
+    box.setAttribute("id", "cards");
+    box.innerHTML = "";
+    switch (e.target) {
+      case document.getElementById("sub1"):
+        hist.push(inputs.inp1.value);
+        show(URL.actors, inputs.inp1, "1");
+        show(URL.writers, inputs.inp1, "1");
+        break;
+      case document.getElementById("sub2"):
+        hist.push(inputs.inp2.value);
+        show(URL.doctors, inputs.inp2, "2");
+        break;
+      case document.getElementById("sub3"):
+        hist.push(inputs.inp3.value);
+        show(URL.episodes, inputs.inp3, "3");
+        break;
+      case document.getElementById("sub4"):
+        hist.push(inputs.inp4.value);
+        show(URL.episodes, inputs.inp4, "4");
+        break;
     }
   });
 });
@@ -120,7 +129,7 @@ function his() {
       box.insertAdjacentHTML(
         "afterbegin",
         `
-    <h1>${el}</h1>
+    <h1 id="histtext">${el}</h1>
     `
       );
     });
@@ -145,6 +154,13 @@ function btn(e) {
       break;
     case button.history:
       his();
+      break;
+    case button.clear:
+      if (hist.length > 0) {
+        hist.length = 0;
+      } else {
+        alert("Nothing to Clear!");
+      }
       break;
   }
 }

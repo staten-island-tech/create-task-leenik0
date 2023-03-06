@@ -4,7 +4,7 @@ const box = document.querySelector(".container");
 function people(e) {
   e.forEach((el) => {
     box.insertAdjacentHTML(
-      "afterbegin",
+      "beforeend",
       `<div class="card">
           <h1>${el.name}</h1>
         </div>`
@@ -15,7 +15,7 @@ function people(e) {
 function inc(e) {
   e.forEach((el) => {
     box.insertAdjacentHTML(
-      "afterbegin",
+      "beforeend",
       `<div class="card">
       <h1>${el.incarnation}</h1>
     </div>`
@@ -26,7 +26,7 @@ function inc(e) {
 function list(e) {
   e.forEach((el) => {
     box.insertAdjacentHTML(
-      "afterbegin",
+      "beforeend",
       `<div class="card">
       <h1>${el.id}</h1>
       <h2>${el.title}</h2>
