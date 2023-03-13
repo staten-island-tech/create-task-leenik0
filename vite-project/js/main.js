@@ -1,5 +1,5 @@
 import { people, inc, list, box } from "./buttons.js";
-// constants
+
 const URL = {
   writers: "https://api.catalogopolis.xyz/v1/writers",
   actors: "https://api.catalogopolis.xyz/v1/actors",
@@ -27,7 +27,6 @@ const inputs = {
 
 const hist = [];
 
-// search bar
 async function show(e, x, y) {
   const response = await fetch(e);
   const res = await response.json();
@@ -97,8 +96,6 @@ document.querySelectorAll(".form").forEach((el) => {
     }
   });
 });
-
-// buttons
 
 button.buttons.forEach((button) => button.addEventListener("click", btn));
 
